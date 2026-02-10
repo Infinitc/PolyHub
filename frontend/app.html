@@ -1,12 +1,9 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produktivitäts-Hub</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>ProHub - Dashboard</title>
     <style>
         * {
             margin: 0;
@@ -16,145 +13,98 @@
 
         :root {
             --primary: #2c3e50;
-            --secondary: #e74c3c;
-            --accent: #f39c12;
+            --secondary: #3498db;
             --success: #27ae60;
-            --background: #ecf0f1;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --bg: #ecf0f1;
             --surface: #ffffff;
             --text: #2c3e50;
-            --text-light: #7f8c8d;
-            --border: #dfe6e9;
-            --shadow: rgba(0, 0, 0, 0.1);
+            --border: #bdc3c7;
         }
 
         body {
-            font-family: 'DM Sans', sans-serif;
-            background: var(--background);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
             color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
         }
 
-        /* ========== APP LAYOUT ========== */
-        .app-container {
-            display: none;
-            min-height: 100vh;
-        }
-
-        .app-container.active {
-            display: block;
-        }
-
-        .app-header {
+        /* Header */
+        .header {
             background: var(--primary);
             color: white;
-            padding: clamp(16px, 3vw, 24px) clamp(20px, 4vw, 40px);
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-            box-shadow: 0 4px 12px var(--shadow);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        .app-title {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .app-title h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(20px, 4vw, 28px);
-            font-weight: 700;
+        .header h1 {
+            font-size: 1.5rem;
         }
 
         .user-info {
             display: flex;
             align-items: center;
-            gap: 16px;
-        }
-
-        .user-name {
-            font-size: clamp(14px, 2.5vw, 16px);
-            font-weight: 500;
+            gap: 1rem;
         }
 
         .btn-logout {
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.15);
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.2);
+            border: none;
             color: white;
-            border-radius: 10px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: clamp(13px, 2.5vw, 14px);
-            font-weight: 600;
-            transition: all 0.3s ease;
-            font-family: 'DM Sans', sans-serif;
+            font-weight: 500;
         }
 
         .btn-logout:hover {
-            background: rgba(255, 255, 255, 0.25);
-            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255,255,255,0.3);
         }
 
-        .app-layout {
+        /* Navigation */
+        .nav {
+            background: white;
+            padding: 1rem 2rem;
             display: flex;
-            min-height: calc(100vh - 72px);
+            gap: 1rem;
+            border-bottom: 2px solid var(--border);
+            overflow-x: auto;
         }
 
-        /* ========== SIDEBAR ========== */
-        .sidebar {
-            width: 100%;
-            max-width: 280px;
-            background: var(--surface);
-            border-right: 1px solid var(--border);
-            padding: 24px 0;
-            overflow-y: auto;
-        }
-
-        .nav-item {
-            padding: 16px 28px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            cursor: pointer;
-            font-size: clamp(14px, 2.5vw, 16px);
-            font-weight: 500;
+        .nav-btn {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: none;
             color: var(--text);
-            transition: all 0.3s ease;
-            border-left: 4px solid transparent;
+            cursor: pointer;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s;
+            white-space: nowrap;
         }
 
-        .nav-item:hover {
-            background: rgba(231, 76, 60, 0.05);
-            border-left-color: var(--secondary);
+        .nav-btn:hover {
+            background: var(--bg);
         }
 
-        .nav-item.active {
-            background: rgba(231, 76, 60, 0.1);
-            border-left-color: var(--secondary);
-            color: var(--secondary);
-            font-weight: 700;
+        .nav-btn.active {
+            background: var(--primary);
+            color: white;
         }
 
-        .nav-icon {
-            font-size: clamp(18px, 3vw, 22px);
-            width: 28px;
-            text-align: center;
-        }
-
-        /* ========== MAIN CONTENT ========== */
-        .main-content {
-            flex: 1;
-            padding: clamp(20px, 4vw, 40px);
-            overflow-y: auto;
-            background: var(--background);
+        /* Main Content */
+        .main {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
         }
 
         .section {
             display: none;
-            animation: fadeIn 0.4s ease-out;
+            animation: fadeIn 0.3s;
         }
 
         .section.active {
@@ -162,1353 +112,652 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .section-header {
-            margin-bottom: 32px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
+        /* Cards */
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
         }
 
-        .section-header h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(24px, 5vw, 36px);
-            font-weight: 700;
+        .card h2 {
+            margin-bottom: 1.5rem;
             color: var(--primary);
         }
 
-        .btn-add {
-            padding: 12px 24px;
-            background: var(--secondary);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: clamp(13px, 2.5vw, 15px);
+        /* Forms */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
             font-weight: 600;
-            transition: all 0.3s ease;
-            font-family: 'DM Sans', sans-serif;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            color: var(--text);
         }
 
-        .btn-add:hover {
-            background: #c0392b;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(231, 76, 60, 0.3);
-        }
-
-        /* ========== NOTIZEN ========== */
-        .notes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
-            gap: 20px;
-        }
-
-        .note-card {
-            background: var(--surface);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 2px 8px var(--shadow);
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .note-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
             width: 100%;
-            height: 4px;
-            background: var(--secondary);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .note-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px var(--shadow);
-            border-color: var(--border);
-        }
-
-        .note-card:hover::before {
-            opacity: 1;
-        }
-
-        .note-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 12px;
-            gap: 12px;
-        }
-
-        .note-title {
-            font-weight: 700;
-            font-size: clamp(16px, 3vw, 18px);
-            color: var(--primary);
-            flex: 1;
-        }
-
-        .priority-badge {
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: clamp(11px, 2vw, 12px);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .priority-high {
-            background: #fee;
-            color: #c0392b;
-        }
-
-        .priority-medium {
-            background: #fef5e7;
-            color: #d68910;
-        }
-
-        .priority-low {
-            background: #e8f8f5;
-            color: #117a65;
-        }
-
-        .note-content {
-            color: var(--text-light);
-            font-size: clamp(14px, 2.5vw, 15px);
-            margin-bottom: 16px;
-            line-height: 1.6;
-        }
-
-        .note-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 16px;
-            padding-top: 12px;
-            border-top: 1px solid var(--border);
-        }
-
-        .note-deadline {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--text-light);
-            font-size: clamp(12px, 2vw, 13px);
-        }
-
-        .note-calendar {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--secondary);
-            font-size: clamp(12px, 2vw, 13px);
-            font-weight: 600;
-        }
-
-        .note-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn-small {
-            padding: 8px 16px;
-            border: none;
+            padding: 0.75rem;
+            border: 2px solid var(--border);
             border-radius: 8px;
-            cursor: pointer;
-            font-size: clamp(12px, 2vw, 13px);
-            font-weight: 600;
-            transition: all 0.2s ease;
-            font-family: 'DM Sans', sans-serif;
-        }
-
-        .btn-edit {
-            background: #e8f4f8;
-            color: #2980b9;
-        }
-
-        .btn-edit:hover {
-            background: #d4ebf2;
-        }
-
-        .btn-delete {
-            background: #fadbd8;
-            color: #c0392b;
-        }
-
-        .btn-delete:hover {
-            background: #f5b7b1;
-        }
-
-        /* ========== KALENDER ========== */
-        .calendar-wrapper {
-            background: var(--surface);
-            border-radius: 16px;
-            padding: clamp(20px, 4vw, 32px);
-            box-shadow: 0 2px 8px var(--shadow);
-        }
-
-        .calendar-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 28px;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .calendar-month {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(20px, 4vw, 28px);
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .calendar-nav {
-            display: flex;
-            gap: 8px;
-        }
-
-        .btn-nav {
-            width: 40px;
-            height: 40px;
-            border: 2px solid var(--border);
-            background: var(--surface);
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            color: var(--text);
-        }
-
-        .btn-nav:hover {
-            background: var(--secondary);
-            color: white;
-            border-color: var(--secondary);
-        }
-
-        .btn-sync {
-            padding: 10px 20px;
-            background: #000;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: clamp(13px, 2.5vw, 14px);
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-            font-family: 'DM Sans', sans-serif;
-        }
-
-        .btn-sync:hover {
-            background: #333;
-            transform: translateY(-2px);
-        }
-
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: clamp(4px, 1vw, 8px);
-        }
-
-        .calendar-day-header {
-            text-align: center;
-            font-weight: 700;
-            padding: 12px;
-            color: var(--secondary);
-            font-size: clamp(12px, 2vw, 14px);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .calendar-day {
-            aspect-ratio: 1;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            padding: clamp(6px, 2vw, 12px);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: var(--surface);
-            position: relative;
-        }
-
-        .calendar-day:hover {
-            background: rgba(231, 76, 60, 0.05);
-            border-color: var(--secondary);
-            transform: scale(1.05);
-        }
-
-        .calendar-day.has-event::after {
-            content: '';
-            position: absolute;
-            bottom: 6px;
-            width: 6px;
-            height: 6px;
-            background: var(--secondary);
-            border-radius: 50%;
-        }
-
-        .calendar-day.today {
-            background: var(--secondary);
-            color: white;
-            font-weight: 700;
-        }
-
-        .calendar-day.other-month {
-            opacity: 0.3;
-        }
-
-        .day-number {
-            font-weight: 600;
-            font-size: clamp(12px, 2.5vw, 16px);
-        }
-
-        /* ========== FINANZEN ========== */
-        .finance-overview {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
-            gap: 20px;
-            margin-bottom: 32px;
-        }
-
-        .finance-card {
-            background: var(--surface);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 2px 8px var(--shadow);
-            transition: all 0.3s ease;
-        }
-
-        .finance-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px var(--shadow);
-        }
-
-        .finance-card-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-
-        .finance-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-        }
-
-        .finance-icon.income {
-            background: #e8f8f5;
-            color: var(--success);
-        }
-
-        .finance-icon.expense {
-            background: #fadbd8;
-            color: var(--secondary);
-        }
-
-        .finance-icon.balance {
-            background: #e8f4f8;
-            color: #2980b9;
-        }
-
-        .finance-label {
-            font-size: clamp(13px, 2.5vw, 14px);
-            color: var(--text-light);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .finance-amount {
-            font-size: clamp(28px, 6vw, 36px);
-            font-weight: 800;
-            font-family: 'Playfair Display', serif;
-            margin-bottom: 8px;
-        }
-
-        .finance-amount.positive {
-            color: var(--success);
-        }
-
-        .finance-amount.negative {
-            color: var(--secondary);
-        }
-
-        .finance-transactions {
-            background: var(--surface);
-            border-radius: 16px;
-            padding: clamp(20px, 4vw, 28px);
-            box-shadow: 0 2px 8px var(--shadow);
-        }
-
-        .transaction-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-            padding-bottom: 16px;
-            border-bottom: 2px solid var(--border);
-        }
-
-        .transaction-header h4 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(18px, 4vw, 24px);
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .transaction-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            transition: all 0.2s ease;
-            gap: 16px;
-        }
-
-        .transaction-item:hover {
-            background: var(--background);
-        }
-
-        .transaction-info {
-            flex: 1;
-        }
-
-        .transaction-title {
-            font-weight: 600;
-            font-size: clamp(14px, 2.5vw, 16px);
-            color: var(--primary);
-            margin-bottom: 4px;
-        }
-
-        .transaction-date {
-            font-size: clamp(12px, 2vw, 13px);
-            color: var(--text-light);
-        }
-
-        .transaction-amount {
-            font-weight: 700;
-            font-size: clamp(16px, 3vw, 18px);
-            font-family: 'DM Sans', sans-serif;
-        }
-
-        .transaction-amount.income {
-            color: var(--success);
-        }
-
-        .transaction-amount.expense {
-            color: var(--secondary);
-        }
-
-        /* ========== MODAL ========== */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            backdrop-filter: blur(4px);
-        }
-
-        .modal.active {
-            display: flex;
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        .modal-content {
-            background: var(--surface);
-            border-radius: 20px;
-            padding: clamp(24px, 5vw, 40px);
-            width: 100%;
-            max-width: 600px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            animation: slideUp 0.4s ease-out;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-
-        .modal-header h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(20px, 4vw, 26px);
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .btn-close {
-            width: 36px;
-            height: 36px;
-            border: none;
-            background: var(--background);
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 20px;
-            color: var(--text);
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .btn-close:hover {
-            background: var(--secondary);
-            color: white;
-        }
-
-        .modal-body {
-            margin-bottom: 24px;
+            font-size: 1rem;
+            font-family: inherit;
         }
 
         .form-group textarea {
-            width: 100%;
-            padding: 14px 18px;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            font-size: clamp(14px, 3vw, 16px);
-            font-family: 'DM Sans', sans-serif;
-            resize: vertical;
             min-height: 120px;
-            transition: all 0.3s ease;
+            resize: vertical;
         }
 
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--secondary);
-            box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.1);
-        }
-
-        .form-group select {
-            width: 100%;
-            padding: 14px 18px;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            font-size: clamp(14px, 3vw, 16px);
-            font-family: 'DM Sans', sans-serif;
-            background: var(--surface);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--secondary);
-            box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.1);
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 16px;
-        }
-
-        .checkbox-group input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            accent-color: var(--secondary);
-        }
-
-        .modal-footer {
-            display: flex;
-            gap: 12px;
-            justify-content: flex-end;
-        }
-
-        .btn-secondary {
-            padding: 12px 24px;
-            background: var(--background);
-            color: var(--text);
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: clamp(13px, 2.5vw, 15px);
+        /* Buttons */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
             font-weight: 600;
-            transition: all 0.3s ease;
-            font-family: 'DM Sans', sans-serif;
-        }
-
-        .btn-secondary:hover {
-            background: var(--border);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
         }
 
         .btn-primary {
-            padding: 12px 24px;
-            background: var(--secondary);
+            background: var(--primary);
             color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: clamp(13px, 2.5vw, 15px);
-            font-weight: 600;
-            transition: all 0.3s ease;
-            font-family: 'DM Sans', sans-serif;
         }
 
         .btn-primary:hover {
-            background: #c0392b;
-            transform: translateY(-2px);
+            background: #34495e;
         }
 
-        /* ========== RESPONSIVE ========== */
-        @media (max-width: 768px) {
-            .app-layout {
-                flex-direction: column;
-            }
-
-            .sidebar {
-                max-width: 100%;
-                border-right: none;
-                border-bottom: 1px solid var(--border);
-                padding: 12px 0;
-                display: flex;
-                overflow-x: auto;
-            }
-
-            .nav-item {
-                padding: 12px 20px;
-                border-left: none;
-                border-bottom: 4px solid transparent;
-                white-space: nowrap;
-            }
-
-            .nav-item.active,
-            .nav-item:hover {
-                border-left: none;
-                border-bottom-color: var(--secondary);
-            }
-
-            .calendar-grid {
-                gap: 4px;
-            }
-
-            .calendar-day-header,
-            .day-number {
-                font-size: 11px;
-            }
-
-            .modal-footer {
-                flex-direction: column;
-            }
-
-            .btn-secondary,
-            .btn-primary {
-                width: 100%;
-            }
+        .btn-success {
+            background: var(--success);
+            color: white;
         }
 
-        @media (max-width: 480px) {
-            .notes-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .finance-overview {
-                grid-template-columns: 1fr;
-            }
+        .btn-danger {
+            background: var(--danger);
+            color: white;
         }
 
-        /* Empty State */
-        .empty-state {
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* Lists */
+        .list {
+            list-style: none;
+        }
+
+        .list-item {
+            background: var(--bg);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .list-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .list-item-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .list-item-content p {
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+
+        .list-item-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        /* Loading */
+        .loading {
             text-align: center;
-            padding: 60px 20px;
-            color: var(--text-light);
-        }
-
-        .empty-state-icon {
-            font-size: 64px;
-            margin-bottom: 16px;
-            opacity: 0.3;
-        }
-
-        .empty-state h4 {
-            font-size: clamp(18px, 4vw, 22px);
-            margin-bottom: 8px;
+            padding: 2rem;
             color: var(--text);
         }
 
-        .empty-state p {
-            font-size: clamp(14px, 3vw, 16px);
+        /* Error */
+        .error {
+            background: #fee;
+            color: var(--danger);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--danger);
+        }
+
+        /* Success */
+        .success {
+            background: #efe;
+            color: var(--success);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--success);
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+            .nav {
+                padding: 0.5rem 1rem;
+            }
+            .main {
+                padding: 0 1rem;
+            }
+            .card {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
-
-
-
-    <!-- ========== APP CONTAINER ========== -->
-    <div class="app-container active" id="appContainer">
-        <!-- Header -->
-        <div class="app-header">
-            <div class="app-title">
-                <h2>ProHub</h2>
-            </div>
-            <div class="user-info">
-                <span class="user-name" id="currentUser">Benutzer</span>
-                <button class="btn-logout" id="logoutBtn">Abmelden</button>
-            </div>
-        </div>
-
-        <!-- Main Layout -->
-        <div class="app-layout">
-            <!-- Sidebar Navigation -->
-            <div class="sidebar">
-                <div class="nav-item active" data-section="notes">
-                    <span class="nav-icon">📝</span>
-                    <span>Notizen</span>
-                </div>
-                <div class="nav-item" data-section="calendar">
-                    <span class="nav-icon">📅</span>
-                    <span>Kalender</span>
-                </div>
-                <div class="nav-item" data-section="finance">
-                    <span class="nav-icon">💰</span>
-                    <span>Finanzen</span>
-                </div>
-            </div>
-
-            <!-- Main Content -->
-            <div class="main-content">
-                <!-- Notizen Section -->
-                <div class="section active" id="notesSection">
-                    <div class="section-header">
-                        <h3>Meine Notizen</h3>
-                        <button class="btn-add" id="addNoteBtn">
-                            <span>+</span>
-                            <span>Neue Notiz</span>
-                        </button>
-                    </div>
-                    <div class="notes-grid" id="notesGrid">
-                        <!-- Notizen werden hier eingefügt -->
-                    </div>
-                </div>
-
-                <!-- Kalender Section -->
-                <div class="section" id="calendarSection">
-                    <div class="section-header">
-                        <h3>Kalender</h3>
-                        <button class="btn-sync" id="syncAppleBtn">
-                            <span>🍎</span>
-                            <span>Mit Apple synchronisieren</span>
-                        </button>
-                    </div>
-                    <div class="calendar-wrapper">
-                        <div class="calendar-controls">
-                            <h4 class="calendar-month" id="calendarMonth">Januar 2024</h4>
-                            <div class="calendar-nav">
-                                <button class="btn-nav" id="prevMonth">←</button>
-                                <button class="btn-nav" id="nextMonth">→</button>
-                            </div>
-                        </div>
-                        <div class="calendar-grid" id="calendarGrid">
-                            <!-- Kalender wird hier generiert -->
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Finanzen Section -->
-                <div class="section" id="financeSection">
-                    <div class="section-header">
-                        <h3>Finanzen</h3>
-                        <button class="btn-add" id="addTransactionBtn">
-                            <span>+</span>
-                            <span>Transaktion hinzufügen</span>
-                        </button>
-                    </div>
-                    
-                    <div class="finance-overview">
-                        <div class="finance-card">
-                            <div class="finance-card-header">
-                                <div class="finance-icon income">
-                                    <span>↑</span>
-                                </div>
-                                <div class="finance-label">Einnahmen</div>
-                            </div>
-                            <div class="finance-amount positive" id="totalIncome">€0,00</div>
-                        </div>
-                        
-                        <div class="finance-card">
-                            <div class="finance-card-header">
-                                <div class="finance-icon expense">
-                                    <span>↓</span>
-                                </div>
-                                <div class="finance-label">Ausgaben</div>
-                            </div>
-                            <div class="finance-amount negative" id="totalExpense">€0,00</div>
-                        </div>
-                        
-                        <div class="finance-card">
-                            <div class="finance-card-header">
-                                <div class="finance-icon balance">
-                                    <span>=</span>
-                                </div>
-                                <div class="finance-label">Bilanz</div>
-                            </div>
-                            <div class="finance-amount" id="balance">€0,00</div>
-                        </div>
-                    </div>
-
-                    <div class="finance-transactions">
-                        <div class="transaction-header">
-                            <h4>Transaktionen</h4>
-                        </div>
-                        <div id="transactionsList">
-                            <!-- Transaktionen werden hier eingefügt -->
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- Header -->
+    <div class="header">
+        <h1>🚀 ProHub</h1>
+        <div class="user-info">
+            <span id="username">Laden...</span>
+            <button class="btn-logout" onclick="logout()">Abmelden</button>
         </div>
     </div>
 
-    <!-- ========== NOTIZ MODAL ========== -->
-    <div class="modal" id="noteModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="noteModalTitle">Neue Notiz</h3>
-                <button class="btn-close" id="closeNoteModal">×</button>
-            </div>
-            <div class="modal-body">
-                <form id="noteForm">
-                    <div class="form-group">
-                        <label for="noteTitle">Titel</label>
-                        <input type="text" id="noteTitle" placeholder="Titel der Notiz" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="noteContent">Inhalt</label>
-                        <textarea id="noteContent" placeholder="Was möchtest du notieren?" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="notePriority">Priorität</label>
-                        <select id="notePriority">
-                            <option value="low">Niedrig</option>
-                            <option value="medium" selected>Mittel</option>
-                            <option value="high">Hoch</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="noteDeadline">Deadline</label>
-                        <input type="date" id="noteDeadline">
-                    </div>
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="addToCalendar">
-                        <label for="addToCalendar">Im Kalender eintragen</label>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-secondary" id="cancelNote">Abbrechen</button>
-                <button class="btn-primary" id="saveNote">Speichern</button>
-            </div>
-        </div>
+    <!-- Navigation -->
+    <div class="nav">
+        <button class="nav-btn active" onclick="showSection('notes')">📝 Notizen</button>
+        <button class="nav-btn" onclick="showSection('calendar')">📅 Kalender</button>
+        <button class="nav-btn" onclick="showSection('finance')">💰 Finanzen</button>
+        <button class="nav-btn" onclick="showSection('mail')">📧 E-Mail</button>
     </div>
 
-    <!-- ========== TRANSAKTION MODAL ========== -->
-    <div class="modal" id="transactionModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Neue Transaktion</h3>
-                <button class="btn-close" id="closeTransactionModal">×</button>
+    <!-- Main Content -->
+    <div class="main">
+        <!-- Notes Section -->
+        <div id="notes" class="section active">
+            <div class="card">
+                <h2>Neue Notiz</h2>
+                <div class="form-group">
+                    <label>Titel</label>
+                    <input type="text" id="note-title" placeholder="Titel der Notiz">
+                </div>
+                <div class="form-group">
+                    <label>Inhalt</label>
+                    <textarea id="note-content" placeholder="Notizinhalt..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Priorität</label>
+                    <select id="note-priority">
+                        <option value="low">Niedrig</option>
+                        <option value="medium" selected>Mittel</option>
+                        <option value="high">Hoch</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" onclick="createNote()">Notiz erstellen</button>
             </div>
-            <div class="modal-body">
-                <form id="transactionForm">
-                    <div class="form-group">
-                        <label for="transactionTitle">Beschreibung</label>
-                        <input type="text" id="transactionTitle" placeholder="z.B. Gehalt, Miete, Einkauf" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="transactionAmount">Betrag (€)</label>
-                        <input type="number" id="transactionAmount" step="0.01" placeholder="0.00" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="transactionType">Typ</label>
-                        <select id="transactionType">
-                            <option value="income">Einnahme</option>
-                            <option value="expense">Ausgabe</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="transactionDate">Datum</label>
-                        <input type="date" id="transactionDate" required>
-                    </div>
-                </form>
+
+            <div class="card">
+                <h2>Meine Notizen</h2>
+                <div id="notes-loading" class="loading">Lade Notizen...</div>
+                <ul id="notes-list" class="list"></ul>
             </div>
-            <div class="modal-footer">
-                <button class="btn-secondary" id="cancelTransaction">Abbrechen</button>
-                <button class="btn-primary" id="saveTransaction">Speichern</button>
+        </div>
+
+        <!-- Calendar Section -->
+        <div id="calendar" class="section">
+            <div class="card">
+                <h2>Neuer Termin</h2>
+                <div class="form-group">
+                    <label>Titel</label>
+                    <input type="text" id="event-title" placeholder="Titel des Termins">
+                </div>
+                <div class="form-group">
+                    <label>Datum</label>
+                    <input type="date" id="event-date">
+                </div>
+                <div class="form-group">
+                    <label>Beschreibung</label>
+                    <textarea id="event-description" placeholder="Beschreibung..."></textarea>
+                </div>
+                <button class="btn btn-primary" onclick="createEvent()">Termin erstellen</button>
+            </div>
+
+            <div class="card">
+                <h2>Meine Termine</h2>
+                <div id="events-loading" class="loading">Lade Termine...</div>
+                <ul id="events-list" class="list"></ul>
+            </div>
+        </div>
+
+        <!-- Finance Section -->
+        <div id="finance" class="section">
+            <div class="card">
+                <h2>Neue Transaktion</h2>
+                <div class="form-group">
+                    <label>Titel</label>
+                    <input type="text" id="transaction-title" placeholder="z.B. Einkauf">
+                </div>
+                <div class="form-group">
+                    <label>Betrag (€)</label>
+                    <input type="number" step="0.01" id="transaction-amount" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label>Typ</label>
+                    <select id="transaction-type">
+                        <option value="expense">Ausgabe</option>
+                        <option value="income">Einnahme</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Datum</label>
+                    <input type="date" id="transaction-date">
+                </div>
+                <button class="btn btn-primary" onclick="createTransaction()">Transaktion erstellen</button>
+            </div>
+
+            <div class="card">
+                <h2>Übersicht</h2>
+                <div id="finance-summary-loading" class="loading">Lade Übersicht...</div>
+                <div id="finance-summary"></div>
+            </div>
+
+            <div class="card">
+                <h2>Transaktionen</h2>
+                <div id="transactions-loading" class="loading">Lade Transaktionen...</div>
+                <ul id="transactions-list" class="list"></ul>
+            </div>
+        </div>
+
+        <!-- Mail Section -->
+        <div id="mail" class="section">
+            <div class="card">
+                <h2>📧 E-Mail</h2>
+                <p>E-Mail Funktion kommt bald...</p>
             </div>
         </div>
     </div>
 
     <script>
-        // ========== DATA STORAGE ==========
-        let currentUser = '';
-        let notes = [];
-        let transactions = [];
-        let calendarEvents = [];
-        let currentDate = new Date();
-        let editingNoteId = null;
+        // ========== AUTHENTICATION ==========
+        const API_BASE = '/api';
+        let token = localStorage.getItem('token');
 
-        // ========== AUTH CHECK ==========
-        window.addEventListener('load', () => {
-            const loggedIn = localStorage.getItem('prohub_logged_in');
-            const user = localStorage.getItem('prohub_user');
-            
-            if (loggedIn !== 'true' || !user) {
-                // Redirect to login if not authenticated
-                window.location.href = 'login.html';
-                return;
+        // Check authentication on load
+        if (!token) {
+            window.location.href = '/login.html';
+        }
+
+        // Verify token and load user info
+        async function verifyAuth() {
+            try {
+                const response = await fetch(`${API_BASE}/auth/me`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.status === 401) {
+                    logout();
+                    return;
+                }
+
+                if (!response.ok) {
+                    throw new Error('Authentication failed');
+                }
+
+                const user = await response.json();
+                document.getElementById('username').textContent = user.username;
+            } catch (error) {
+                console.error('Auth error:', error);
+                logout();
             }
-            
-            // Set current user
-            currentUser = user;
-            document.getElementById('currentUser').textContent = user;
-            
-            // Load user data
-            loadData();
-            
-            // Initialize calendar
-            renderCalendar();
-        });
+        }
 
-        // ========== LOGOUT HANDLING ==========
-        document.getElementById('logoutBtn').addEventListener('click', () => {
-            // Save data before logout
-            saveData();
-            
-            // Clear login state
-            localStorage.removeItem('prohub_logged_in');
-            
-            // Redirect to login
-            window.location.href = 'login.html';
-        });
+        function logout() {
+            localStorage.removeItem('token');
+            window.location.href = '/login.html';
+        }
+
+        // ========== API HELPER ==========
+        async function apiCall(endpoint, options = {}) {
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+                ...options.headers
+            };
+
+            try {
+                const response = await fetch(`${API_BASE}${endpoint}`, {
+                    ...options,
+                    headers
+                });
+
+                if (response.status === 401) {
+                    logout();
+                    return null;
+                }
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                if (response.status === 204) {
+                    return null;
+                }
+
+                return await response.json();
+            } catch (error) {
+                console.error('API Error:', error);
+                throw error;
+            }
+        }
 
         // ========== NAVIGATION ==========
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', () => {
-                // Update active nav item
-                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-                item.classList.add('active');
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+
+            // Load data for section
+            if (sectionId === 'notes') loadNotes();
+            if (sectionId === 'calendar') loadEvents();
+            if (sectionId === 'finance') { loadTransactions(); loadFinanceSummary(); }
+        }
+
+        // ========== NOTES ==========
+        async function loadNotes() {
+            try {
+                document.getElementById('notes-loading').style.display = 'block';
+                const notes = await apiCall('/notes/');
                 
-                // Show corresponding section
-                const sectionId = item.dataset.section + 'Section';
-                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-                document.getElementById(sectionId).classList.add('active');
-            });
-        });
+                const listEl = document.getElementById('notes-list');
+                listEl.innerHTML = '';
 
-        // ========== NOTIZEN FUNKTIONALITÄT ==========
-        document.getElementById('addNoteBtn').addEventListener('click', () => {
-            editingNoteId = null;
-            document.getElementById('noteModalTitle').textContent = 'Neue Notiz';
-            document.getElementById('noteForm').reset();
-            document.getElementById('noteModal').classList.add('active');
-        });
-
-        document.getElementById('closeNoteModal').addEventListener('click', () => {
-            document.getElementById('noteModal').classList.remove('active');
-        });
-
-        document.getElementById('cancelNote').addEventListener('click', () => {
-            document.getElementById('noteModal').classList.remove('active');
-        });
-
-        document.getElementById('saveNote').addEventListener('click', () => {
-            const title = document.getElementById('noteTitle').value;
-            const content = document.getElementById('noteContent').value;
-            const priority = document.getElementById('notePriority').value;
-            const deadline = document.getElementById('noteDeadline').value;
-            const addToCalendar = document.getElementById('addToCalendar').checked;
-            
-            if (!title || !content) return;
-            
-            const note = {
-                id: editingNoteId || Date.now(),
-                title,
-                content,
-                priority,
-                deadline,
-                inCalendar: addToCalendar,
-                createdAt: new Date().toISOString()
-            };
-            
-            if (editingNoteId) {
-                const index = notes.findIndex(n => n.id === editingNoteId);
-                notes[index] = note;
-            } else {
-                notes.push(note);
-            }
-            
-            // Wenn "Im Kalender eintragen" aktiviert und Deadline gesetzt
-            if (addToCalendar && deadline) {
-                const eventIndex = calendarEvents.findIndex(e => e.noteId === note.id);
-                const event = {
-                    noteId: note.id,
-                    title: note.title,
-                    date: deadline,
-                    priority: note.priority
-                };
-                
-                if (eventIndex >= 0) {
-                    calendarEvents[eventIndex] = event;
+                if (notes && notes.length > 0) {
+                    notes.forEach(note => {
+                        const li = document.createElement('li');
+                        li.className = 'list-item';
+                        li.innerHTML = `
+                            <div class="list-item-content">
+                                <h3>${escapeHtml(note.title)}</h3>
+                                <p>${escapeHtml(note.content.substring(0, 100))}${note.content.length > 100 ? '...' : ''}</p>
+                                <small>Priorität: ${note.priority} | ${new Date(note.created_at).toLocaleDateString()}</small>
+                            </div>
+                            <div class="list-item-actions">
+                                <button class="btn btn-danger btn-small" onclick="deleteNote(${note.id})">Löschen</button>
+                            </div>
+                        `;
+                        listEl.appendChild(li);
+                    });
                 } else {
-                    calendarEvents.push(event);
+                    listEl.innerHTML = '<p style="text-align:center;color:#999;">Keine Notizen vorhanden</p>';
                 }
-                renderCalendar();
-            }
-            
-            renderNotes();
-            saveData();
-            document.getElementById('noteModal').classList.remove('active');
-        });
 
-        function renderNotes() {
-            const grid = document.getElementById('notesGrid');
-            
-            if (notes.length === 0) {
-                grid.innerHTML = `
-                    <div class="empty-state" style="grid-column: 1/-1;">
-                        <div class="empty-state-icon">📝</div>
-                        <h4>Keine Notizen vorhanden</h4>
-                        <p>Erstelle deine erste Notiz mit dem Button oben</p>
-                    </div>
-                `;
+                document.getElementById('notes-loading').style.display = 'none';
+            } catch (error) {
+                document.getElementById('notes-loading').innerHTML = '<div class="error">Fehler beim Laden der Notizen</div>';
+            }
+        }
+
+        async function createNote() {
+            const title = document.getElementById('note-title').value;
+            const content = document.getElementById('note-content').value;
+            const priority = document.getElementById('note-priority').value;
+
+            if (!title || !content) {
+                alert('Bitte Titel und Inhalt eingeben');
                 return;
             }
-            
-            grid.innerHTML = notes.map(note => `
-                <div class="note-card">
-                    <div class="note-header">
-                        <div class="note-title">${note.title}</div>
-                        <span class="priority-badge priority-${note.priority}">
-                            ${note.priority === 'high' ? 'Hoch' : note.priority === 'medium' ? 'Mittel' : 'Niedrig'}
-                        </span>
-                    </div>
-                    <div class="note-content">${note.content}</div>
-                    <div class="note-meta">
-                        ${note.deadline ? `
-                            <div class="note-deadline">
-                                <span>📅</span>
-                                <span>${formatDate(note.deadline)}</span>
-                            </div>
-                        ` : ''}
-                        ${note.inCalendar ? `
-                            <div class="note-calendar">
-                                <span>✓</span>
-                                <span>Im Kalender</span>
-                            </div>
-                        ` : ''}
-                    </div>
-                    <div class="note-actions">
-                        <button class="btn-small btn-edit" onclick="editNote(${note.id})">Bearbeiten</button>
-                        <button class="btn-small btn-delete" onclick="deleteNote(${note.id})">Löschen</button>
-                    </div>
-                </div>
-            `).join('');
-        }
 
-        function editNote(id) {
-            const note = notes.find(n => n.id === id);
-            if (!note) return;
-            
-            editingNoteId = id;
-            document.getElementById('noteModalTitle').textContent = 'Notiz bearbeiten';
-            document.getElementById('noteTitle').value = note.title;
-            document.getElementById('noteContent').value = note.content;
-            document.getElementById('notePriority').value = note.priority;
-            document.getElementById('noteDeadline').value = note.deadline || '';
-            document.getElementById('addToCalendar').checked = note.inCalendar;
-            document.getElementById('noteModal').classList.add('active');
-        }
+            try {
+                await apiCall('/notes/', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        title,
+                        content,
+                        priority,
+                        in_calendar: false
+                    })
+                });
 
-        function deleteNote(id) {
-            if (!confirm('Möchtest du diese Notiz wirklich löschen?')) return;
-            
-            notes = notes.filter(n => n.id !== id);
-            calendarEvents = calendarEvents.filter(e => e.noteId !== id);
-            renderNotes();
-            renderCalendar();
-            saveData();
-        }
+                // Clear form
+                document.getElementById('note-title').value = '';
+                document.getElementById('note-content').value = '';
+                document.getElementById('note-priority').value = 'medium';
 
-        // ========== KALENDER FUNKTIONALITÄT ==========
-        const monthNames = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
-                           'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
-        const dayNames = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
-
-        document.getElementById('prevMonth').addEventListener('click', () => {
-            currentDate.setMonth(currentDate.getMonth() - 1);
-            renderCalendar();
-        });
-
-        document.getElementById('nextMonth').addEventListener('click', () => {
-            currentDate.setMonth(currentDate.getMonth() + 1);
-            renderCalendar();
-        });
-
-        document.getElementById('syncAppleBtn').addEventListener('click', () => {
-            // Apple Calendar Sync Simulation
-            const icsContent = generateICS();
-            const blob = new Blob([icsContent], { type: 'text/calendar' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'prohub-calendar.ics';
-            a.click();
-            
-            alert('Kalender-Datei wurde heruntergeladen! Du kannst sie jetzt in Apple Kalender importieren.');
-        });
-
-        function generateICS() {
-            let ics = `BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//ProHub//Calendar//DE
-`;
-            
-            calendarEvents.forEach(event => {
-                const date = event.date.replace(/-/g, '');
-                ics += `BEGIN:VEVENT
-UID:${event.noteId}@prohub.com
-DTSTAMP:${date}T000000Z
-DTSTART:${date}T000000Z
-SUMMARY:${event.title}
-DESCRIPTION:Priorität: ${event.priority}
-END:VEVENT
-`;
-            });
-            
-            ics += 'END:VCALENDAR';
-            return ics;
-        }
-
-        function renderCalendar() {
-            const year = currentDate.getFullYear();
-            const month = currentDate.getMonth();
-            
-            document.getElementById('calendarMonth').textContent = `${monthNames[month]} ${year}`;
-            
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            const daysInPrevMonth = new Date(year, month, 0).getDate();
-            
-            let html = '';
-            
-            // Tage Header
-            dayNames.forEach(day => {
-                html += `<div class="calendar-day-header">${day}</div>`;
-            });
-            
-            // Tage vom vorherigen Monat
-            for (let i = firstDay - 1; i >= 0; i--) {
-                html += `<div class="calendar-day other-month">
-                    <div class="day-number">${daysInPrevMonth - i}</div>
-                </div>`;
+                // Reload notes
+                loadNotes();
+            } catch (error) {
+                alert('Fehler beim Erstellen der Notiz');
             }
-            
-            // Tage des aktuellen Monats
-            const today = new Date();
-            for (let day = 1; day <= daysInMonth; day++) {
-                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                const hasEvent = calendarEvents.some(e => e.date === dateStr);
-                const isToday = today.getDate() === day && today.getMonth() === month && today.getFullYear() === year;
+        }
+
+        async function deleteNote(id) {
+            if (!confirm('Notiz wirklich löschen?')) return;
+
+            try {
+                await apiCall(`/notes/${id}`, { method: 'DELETE' });
+                loadNotes();
+            } catch (error) {
+                alert('Fehler beim Löschen');
+            }
+        }
+
+        // ========== CALENDAR ==========
+        async function loadEvents() {
+            try {
+                document.getElementById('events-loading').style.display = 'block';
+                const events = await apiCall('/calendar/');
                 
-                html += `<div class="calendar-day ${hasEvent ? 'has-event' : ''} ${isToday ? 'today' : ''}"
-                         onclick="showDayEvents('${dateStr}')">
-                    <div class="day-number">${day}</div>
-                </div>`;
+                const listEl = document.getElementById('events-list');
+                listEl.innerHTML = '';
+
+                if (events && events.length > 0) {
+                    events.forEach(event => {
+                        const li = document.createElement('li');
+                        li.className = 'list-item';
+                        li.innerHTML = `
+                            <div class="list-item-content">
+                                <h3>${escapeHtml(event.title)}</h3>
+                                <p>${new Date(event.date).toLocaleDateString('de-DE')}</p>
+                                ${event.description ? `<small>${escapeHtml(event.description)}</small>` : ''}
+                            </div>
+                            <div class="list-item-actions">
+                                <button class="btn btn-danger btn-small" onclick="deleteEvent(${event.id})">Löschen</button>
+                            </div>
+                        `;
+                        listEl.appendChild(li);
+                    });
+                } else {
+                    listEl.innerHTML = '<p style="text-align:center;color:#999;">Keine Termine vorhanden</p>';
+                }
+
+                document.getElementById('events-loading').style.display = 'none';
+            } catch (error) {
+                document.getElementById('events-loading').innerHTML = '<div class="error">Fehler beim Laden</div>';
             }
-            
-            // Tage vom nächsten Monat
-            const remainingDays = 42 - (firstDay + daysInMonth);
-            for (let day = 1; day <= remainingDays; day++) {
-                html += `<div class="calendar-day other-month">
-                    <div class="day-number">${day}</div>
-                </div>`;
-            }
-            
-            document.getElementById('calendarGrid').innerHTML = html;
         }
 
-        function showDayEvents(dateStr) {
-            const events = calendarEvents.filter(e => e.date === dateStr);
-            if (events.length === 0) {
-                alert('Keine Ereignisse an diesem Tag');
+        async function createEvent() {
+            const title = document.getElementById('event-title').value;
+            const date = document.getElementById('event-date').value;
+            const description = document.getElementById('event-description').value;
+
+            if (!title || !date) {
+                alert('Bitte Titel und Datum eingeben');
                 return;
             }
-            
-            const eventList = events.map(e => `• ${e.title} (${e.priority})`).join('\n');
-            alert(`Ereignisse am ${formatDate(dateStr)}:\n\n${eventList}`);
-        }
 
-        // ========== FINANZEN FUNKTIONALITÄT ==========
-        document.getElementById('addTransactionBtn').addEventListener('click', () => {
-            document.getElementById('transactionForm').reset();
-            document.getElementById('transactionDate').valueAsDate = new Date();
-            document.getElementById('transactionModal').classList.add('active');
-        });
+            try {
+                await apiCall('/calendar/', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        title,
+                        date,
+                        description,
+                        priority: 'medium'
+                    })
+                });
 
-        document.getElementById('closeTransactionModal').addEventListener('click', () => {
-            document.getElementById('transactionModal').classList.remove('active');
-        });
+                // Clear form
+                document.getElementById('event-title').value = '';
+                document.getElementById('event-date').value = '';
+                document.getElementById('event-description').value = '';
 
-        document.getElementById('cancelTransaction').addEventListener('click', () => {
-            document.getElementById('transactionModal').classList.remove('active');
-        });
-
-        document.getElementById('saveTransaction').addEventListener('click', () => {
-            const title = document.getElementById('transactionTitle').value;
-            const amount = parseFloat(document.getElementById('transactionAmount').value);
-            const type = document.getElementById('transactionType').value;
-            const date = document.getElementById('transactionDate').value;
-            
-            if (!title || !amount || !date) return;
-            
-            transactions.push({
-                id: Date.now(),
-                title,
-                amount,
-                type,
-                date,
-                createdAt: new Date().toISOString()
-            });
-            
-            renderTransactions();
-            updateFinanceSummary();
-            saveData();
-            document.getElementById('transactionModal').classList.remove('active');
-        });
-
-        function renderTransactions() {
-            const list = document.getElementById('transactionsList');
-            
-            if (transactions.length === 0) {
-                list.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-state-icon">💰</div>
-                        <h4>Keine Transaktionen vorhanden</h4>
-                        <p>Füge deine erste Transaktion hinzu</p>
-                    </div>
-                `;
-                return;
+                loadEvents();
+            } catch (error) {
+                alert('Fehler beim Erstellen');
             }
-            
-            // Sortiere nach Datum (neueste zuerst)
-            const sorted = [...transactions].sort((a, b) => new Date(b.date) - new Date(a.date));
-            
-            list.innerHTML = sorted.map(t => `
-                <div class="transaction-item">
-                    <div class="transaction-info">
-                        <div class="transaction-title">${t.title}</div>
-                        <div class="transaction-date">${formatDate(t.date)}</div>
-                    </div>
-                    <div class="transaction-amount ${t.type}">
-                        ${t.type === 'income' ? '+' : '-'}€${t.amount.toFixed(2)}
-                    </div>
-                </div>
-            `).join('');
         }
 
-        function updateFinanceSummary() {
-            const income = transactions
-                .filter(t => t.type === 'income')
-                .reduce((sum, t) => sum + t.amount, 0);
-            
-            const expense = transactions
-                .filter(t => t.type === 'expense')
-                .reduce((sum, t) => sum + t.amount, 0);
-            
-            const balance = income - expense;
-            
-            document.getElementById('totalIncome').textContent = `€${income.toFixed(2)}`;
-            document.getElementById('totalExpense').textContent = `€${expense.toFixed(2)}`;
-            
-            const balanceEl = document.getElementById('balance');
-            balanceEl.textContent = `€${balance.toFixed(2)}`;
-            balanceEl.className = 'finance-amount';
-            if (balance > 0) balanceEl.classList.add('positive');
-            else if (balance < 0) balanceEl.classList.add('negative');
+        async function deleteEvent(id) {
+            if (!confirm('Termin wirklich löschen?')) return;
+
+            try {
+                await apiCall(`/calendar/${id}`, { method: 'DELETE' });
+                loadEvents();
+            } catch (error) {
+                alert('Fehler beim Löschen');
+            }
         }
 
-        // ========== HELPER FUNCTIONS ==========
-        function formatDate(dateStr) {
-            const date = new Date(dateStr);
-            const day = date.getDate();
-            const month = date.getMonth() + 1;
-            const year = date.getFullYear();
-            return `${day}.${month}.${year}`;
-        }
-
-        function saveData() {
-            const data = {
-                user: currentUser,
-                notes,
-                transactions,
-                calendarEvents
-            };
-            localStorage.setItem('prohub_data', JSON.stringify(data));
-        }
-
-        function loadData() {
-            const saved = localStorage.getItem('prohub_data');
-            if (saved) {
-                const data = JSON.parse(saved);
-                notes = data.notes || [];
-                transactions = data.transactions || [];
-                calendarEvents = data.calendarEvents || [];
+        // ========== FINANCE ==========
+        async function loadTransactions() {
+            try {
+                document.getElementById('transactions-loading').style.display = 'block';
+                const transactions = await apiCall('/finance/transactions?limit=20');
                 
-                renderNotes();
-                renderTransactions();
-                updateFinanceSummary();
+                const listEl = document.getElementById('transactions-list');
+                listEl.innerHTML = '';
+
+                if (transactions && transactions.length > 0) {
+                    transactions.forEach(t => {
+                        const li = document.createElement('li');
+                        li.className = 'list-item';
+                        const typeColor = t.type === 'income' ? 'var(--success)' : 'var(--danger)';
+                        const sign = t.type === 'income' ? '+' : '-';
+                        li.innerHTML = `
+                            <div class="list-item-content">
+                                <h3>${escapeHtml(t.title)}</h3>
+                                <p style="color:${typeColor};font-weight:600;font-size:1.1rem;">${sign}${parseFloat(t.amount).toFixed(2)} €</p>
+                                <small>${new Date(t.date).toLocaleDateString('de-DE')}</small>
+                            </div>
+                        `;
+                        listEl.appendChild(li);
+                    });
+                } else {
+                    listEl.innerHTML = '<p style="text-align:center;color:#999;">Keine Transaktionen vorhanden</p>';
+                }
+
+                document.getElementById('transactions-loading').style.display = 'none';
+            } catch (error) {
+                document.getElementById('transactions-loading').innerHTML = '<div class="error">Fehler beim Laden</div>';
             }
         }
 
-        // ========== INITIALIZATION ==========
-        // Setze heutiges Datum als Standard für Transaktionen
-        document.getElementById('transactionDate').valueAsDate = new Date();
+        async function loadFinanceSummary() {
+            try {
+                document.getElementById('finance-summary-loading').style.display = 'block';
+                const summary = await apiCall('/finance/summary');
+                
+                if (summary) {
+                    const summaryEl = document.getElementById('finance-summary');
+                    summaryEl.innerHTML = `
+                        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:1rem;">
+                            <div style="background:var(--bg);padding:1.5rem;border-radius:8px;">
+                                <h4 style="color:var(--success);margin-bottom:0.5rem;">Einnahmen</h4>
+                                <p style="font-size:1.5rem;font-weight:700;">+${parseFloat(summary.total_income).toFixed(2)} €</p>
+                            </div>
+                            <div style="background:var(--bg);padding:1.5rem;border-radius:8px;">
+                                <h4 style="color:var(--danger);margin-bottom:0.5rem;">Ausgaben</h4>
+                                <p style="font-size:1.5rem;font-weight:700;">-${parseFloat(summary.total_expense).toFixed(2)} €</p>
+                            </div>
+                            <div style="background:var(--bg);padding:1.5rem;border-radius:8px;">
+                                <h4 style="color:var(--primary);margin-bottom:0.5rem;">Bilanz</h4>
+                                <p style="font-size:1.5rem;font-weight:700;">${parseFloat(summary.balance).toFixed(2)} €</p>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                document.getElementById('finance-summary-loading').style.display = 'none';
+            } catch (error) {
+                document.getElementById('finance-summary-loading').innerHTML = '<div class="error">Fehler beim Laden</div>';
+            }
+        }
+
+        async function createTransaction() {
+            const title = document.getElementById('transaction-title').value;
+            const amount = document.getElementById('transaction-amount').value;
+            const type = document.getElementById('transaction-type').value;
+            const date = document.getElementById('transaction-date').value;
+
+            if (!title || !amount || !date) {
+                alert('Bitte alle Felder ausfüllen');
+                return;
+            }
+
+            try {
+                await apiCall('/finance/transactions', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        title,
+                        amount: parseFloat(amount),
+                        type,
+                        date
+                    })
+                });
+
+                // Clear form
+                document.getElementById('transaction-title').value = '';
+                document.getElementById('transaction-amount').value = '';
+                document.getElementById('transaction-type').value = 'expense';
+                document.getElementById('transaction-date').value = '';
+
+                loadTransactions();
+                loadFinanceSummary();
+            } catch (error) {
+                alert('Fehler beim Erstellen');
+            }
+        }
+
+        // ========== HELPERS ==========
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ========== INIT ==========
+        verifyAuth();
+        loadNotes();
+
+        // Set today's date as default
+        document.getElementById('event-date').valueAsDate = new Date();
+        document.getElementById('transaction-date').valueAsDate = new Date();
     </script>
 </body>
 </html>
