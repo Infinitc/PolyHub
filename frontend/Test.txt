@@ -1,0 +1,23 @@
+cd /var/www/prohub/frontend
+
+# 1. Umbenennen ProHub → PolyHub
+sed -i 's/ProHub/PolyHub/g' login.html
+sed -i 's/ProHub/PolyHub/g' app.html
+
+# 2. User anlegen
+cd /var/www/prohub/backend
+python3 << 'PYSCRIPT'
+import bcrypt
+from database import SessionLocal
+import models
+
+pw = 'DeinPasswort123'
+hashed = bcrypt.hashpw(pw.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+
+db = SessionLocal()
+u = models.User(username='paul', email='paul@polypaul.de', hashed_password=hashed)
+db.add(u)
+db.commit()
+print('✅ User paul erstellt!')
+db.close()
+PYSCRIPT
