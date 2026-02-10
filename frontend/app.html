@@ -397,14 +397,15 @@
     </div>
 
     <script>
-        // ========== AUTHENTICATION ==========
+// ========== AUTHENTICATION ==========
 const API_BASE = '/api';
 let token = null;
 
-// Wait for DOM and localStorage to be ready
+// Wait for everything to be ready
 window.addEventListener('DOMContentLoaded', () => {
     console.log('🔵 APP.HTML LÄDT...');
     
+    // Get token
     token = localStorage.getItem('token');
     console.log('🔵 Token aus localStorage:', token);
 
@@ -412,17 +413,18 @@ window.addEventListener('DOMContentLoaded', () => {
     if (!token) {
         console.log('❌ KEIN TOKEN! Redirect zu login...');
         window.location.href = '/login.html';
-    } else {
-        console.log('✅ Token gefunden! Länge:', token.length);
-        
-        // Initialize app
-        verifyAuth();
-        loadNotes();
-        
-        // Set today's date as default
-        document.getElementById('event-date').valueAsDate = new Date();
-        document.getElementById('transaction-date').valueAsDate = new Date();
+        return;
     }
+    
+    console.log('✅ Token gefunden! Länge:', token.length);
+    
+    // Initialize app
+    verifyAuth();
+    loadNotes();
+    
+    // Set today's date as default
+    document.getElementById('event-date').valueAsDate = new Date();
+    document.getElementById('transaction-date').valueAsDate = new Date();
 });
 
         // Verify token and load user info
