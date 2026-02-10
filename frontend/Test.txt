@@ -1,6 +1,6 @@
 #!/bin/bash
 
-HASH=$(python3 -c "from passlib.context import CryptContext; ctx = CryptContext(schemes=['bcrypt_sha256'], bcrypt__truncate_error=False); print(ctx.hash('Test1234'))")
+HASH=$(python3 -c "from passlib.context import CryptContext; ctx = CryptContext(schemes=['argon2']; print(ctx.hash('Test1234'))")
 
 sudo -u postgres psql prohub_db -c "INSERT INTO users (username, email, hashed_password, created_at) VALUES ('paul', 'paul@polypaul.de', '$HASH', NOW()) ON CONFLICT (username) DO UPDATE SET hashed_password = EXCLUDED.hashed_password;"
 
