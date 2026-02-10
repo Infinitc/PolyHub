@@ -398,13 +398,19 @@
 
     <script>
         // ========== AUTHENTICATION ==========
-        const API_BASE = '/api';
-        let token = localStorage.getItem('token');
+const API_BASE = '/api';
+console.log('🔵 APP.HTML LÄDT...');
 
-        // Check authentication on load
-        if (!token) {
-            window.location.href = '/login.html';
-        }
+let token = localStorage.getItem('token');
+console.log('🔵 Token aus localStorage:', token);
+
+// Check authentication on load
+if (!token) {
+    console.log('❌ KEIN TOKEN! Redirect zu login...');
+    window.location.href = '/login.html';
+} else {
+    console.log('✅ Token gefunden! Länge:', token.length);
+}
 
         // Verify token and load user info
         async function verifyAuth() {
