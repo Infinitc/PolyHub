@@ -277,62 +277,52 @@ Login secure · HTML
             }
         }
 
-        // Login form handler
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value;
-            
-            if (!username || !password) {
-                showError('Bitte Benutzername und Passwort eingeben');
-                return;
-            }
+loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value;
+    
+    if (!username || !password) {
+        showError('Bitte Benutzername und Passwort eingeben');
+        return;
+    }
 
-            // Disable button and show loading
-            loginBtn.disabled = true;
-            loginBtn.innerHTML = '<span class="loading-spinner"></span> Anmeldung läuft...';
-            hideError();
+    loginBtn.disabled = true;
+    loginBtn.innerHTML = '<span class="loading-spinner"></span> Anmeldung läuft...';
+    hideError();
 
-            try {
-                // Make API request
-                const response = await fetch(`${API_BASE}/auth/login`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        username: username,
-                        password: password
-                    })
-                });
-
-                const data = await response.json();
-
-                if (response.ok && data.access_token) {
-                    // Login successful!
-                    localStorage.setItem('token', data.access_token);
-                    
-                    // Show success
-                    loginBtn.innerHTML = '✓ Erfolgreich!';
-                    loginBtn.style.background = 'var(--success)';
-                    
-                    // Redirect after short delay
-                    setTimeout(() => {
-                        window.location.href = '/app.html';
-                    }, 500);
-                } else {
-                    // Login failed
-                    const errorMsg = data.detail || 'Anmeldung fehlgeschlagen';
-                    showError(errorMsg);
-                    resetButton();
-                }
-            } catch (error) {
-                console.error('Login error:', error);
-                showError('Verbindungsfehler. Bitte versuche es erneut.');
-                resetButton();
-            }
+    try {
+        const response = await fetch(`${API_BASE}/auth/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: username, password: password })
         });
+
+        const data = await response.json();
+
+        if (response.ok && data.access_token) {
+            // Token speichern
+            localStorage.setItem('token', data.access_token);
+            
+            // Success Anzeige
+            loginBtn.innerHTML = '✓ Erfolgreich!';
+            loginBtn.style.background = '#10B981';
+            
+            // WICHTIG: Weiterleitung zur App!
+            setTimeout(() => {
+                window.location.href = '/app.html';
+            }, 800);
+        } else {
+            showError(data.detail || 'Anmeldung fehlgeschlagen');
+            resetButton();
+        }
+    } catch (error) {
+        console.error('Login error:', error);
+        showError('Verbindungsfehler. Bitte versuche es erneut.');
+        resetButton();
+    }
+});
 
         function showError(message) {
             errorMessage.textContent = message;
