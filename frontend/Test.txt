@@ -1,23 +1,4 @@
-cd /var/www/prohub/frontend
-
-# 1. Umbenennen ProHub → PolyHub
-sed -i 's/ProHub/PolyHub/g' login.html
-sed -i 's/ProHub/PolyHub/g' app.html
-
-# 2. User anlegen
 cd /var/www/prohub/backend
-python3 << 'PYSCRIPT'
-import bcrypt
-from database import SessionLocal
-import models
-
-pw = 'DeinPasswort123'
-hashed = bcrypt.hashpw(pw.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-
-db = SessionLocal()
-u = models.User(username='paul', email='paul@polypaul.de', hashed_password=hashed)
-db.add(u)
-db.commit()
-print('✅ User paul erstellt!')
-db.close()
-PYSCRIPT
+HASH=$(python3 -c "import bcrypt; print(bcrypt.hashpw(b'Test1234', bcrypt.gensalt()).decode())")
+sudo -u postgres psql prohub_db -c "INSERT INTO users (username, email, hashed_password, created_at) VALUES ('paul', 'paul@polypaul.de', '$HASH', NOW()) ON CONFLICT (username) DO UPDATE SET hashed_password = EXCLUDED.hashed_password;"
+echo "✅ User paul mit Passwort 'Test1234' angelegt!"
